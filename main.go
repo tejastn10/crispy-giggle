@@ -14,11 +14,11 @@ func main() {
 	home, _ := homedir.Dir()
 	dbPath := filepath.Join(home, "tasks.db")
 	if err := database.Init(dbPath); err != nil {
-		fmt.Println(err)
+		fmt.Println(err.Error())
 	}
 
 	if err := commands.RootCmd.Execute(); err != nil {
-		fmt.Println(err)
+		fmt.Println(err.Error())
 		os.Exit(1)
 	}
 }
