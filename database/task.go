@@ -1,6 +1,7 @@
 package database
 
 import (
+	"encoding/binary"
 	"time"
 
 	"github.com/boltdb/bolt"
@@ -27,4 +28,14 @@ func Init(dbPath string) error {
 		_, err := tx.CreateBucketIfNotExists(taskBucket)
 		return err
 	})
+}
+
+func itob(v int) []byte {
+	b := make([]byte, 8)
+	binary.BigEndian.PutUint64(b, uint64(v))
+	return b
+}
+
+func btoi(b []byte) int {
+	return int(binary.BigEndian.Uint64(b))
 }
