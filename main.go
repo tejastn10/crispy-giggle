@@ -3,6 +3,7 @@ package main
 import (
 	"crispy-giggle/commands"
 	"crispy-giggle/database"
+
 	"fmt"
 	"os"
 	"path/filepath"
