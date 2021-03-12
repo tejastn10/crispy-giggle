@@ -1,6 +1,8 @@
 package commands
 
 import (
+	"crispy-giggle/database"
+
 	"fmt"
 	"strconv"
 
@@ -21,7 +23,24 @@ var doneCmd = &cobra.Command{
 				ids = append(ids, id)
 			}
 		}
-		fmt.Println(ids)
+		tasks, err := database.GetTasks()
+		if err != nil {
+			fmt.Println("Something wemt Wrong!", err)
+			return
+		}
+		for _, id := range ids {
+			if (id <= 0) || (id > len(tasks)) {
+				fmt.Println("Invalid task number:", id)
+				continue
+			}
+			task := tasks[id-1]
+			err := database.DeleteTask(task.Key)
+			if err != nil {
+				fmt.Printf("Failed to mark \"%d\" as completed. Error: %s \n", id, err)
+			} else {
+				fmt.Printf("Marked \"%d\" as complete\n", id)
+			}
+		}
 	},
 }
 
