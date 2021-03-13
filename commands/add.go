@@ -12,15 +12,15 @@ import (
 // addCmmd adds a new task
 var addCmd = &cobra.Command{
 	Use:   "add",
-	Short: "Crispy-giggle adds a task to your task list",
+	Short: "Add a task to your task list ➕",
 	Run: func(cmd *cobra.Command, args []string) {
 		task := strings.Join(args, " ")
 		_, err := database.CreateTask(task)
 		if err != nil {
-			fmt.Println("Something went Wrong!", err)
+			fmt.Println("❌ Something went Wrong!", err)
 			return
 		}
-		fmt.Printf("Added \"%s\" to your Task List. \n", task)
+		fmt.Printf("Added \"%s\" to your Task List ✅\n", task)
 	},
 }
 
